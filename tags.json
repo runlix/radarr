@@ -2,23 +2,23 @@
   "release-debug": {
     "description": "release-debug",
     "hide": false,
-    "last_updated": "2025-12-30T12:51:27.000Z",
-    "last_updated_url": "https://github.com/runlix/radarr/actions/runs/20596894469",
+    "last_updated": "2025-12-30T16:25:52.000Z",
+    "last_updated_url": "https://github.com/runlix/radarr/actions/runs/20600941936",
     "tags": [
       "release-debug",
       "release-6.0.4.10291-debug",
-      "release-74162f5-debug"
+      "release-79bcf27-debug"
     ]
   },
   "release-latest": {
     "description": "release-latest",
     "hide": false,
-    "last_updated": "2025-12-30T12:51:27.000Z",
-    "last_updated_url": "https://github.com/runlix/radarr/actions/runs/20596894469",
+    "last_updated": "2025-12-30T16:25:52.000Z",
+    "last_updated_url": "https://github.com/runlix/radarr/actions/runs/20600941936",
     "tags": [
       "release-latest",
       "release-6.0.4.10291-latest",
-      "release-74162f5-latest"
+      "release-79bcf27-latest"
     ]
   },
   "update-digests-20596648386-1767098104-debug": {
