@@ -42,5 +42,27 @@
       "update-digests-20596648386-1767098104-6.0.4.10291-latest",
       "update-digests-20596648386-1767098104-a42b5cc-latest"
     ]
+  },
+  "update-digests-20596719002-1767098370-debug": {
+    "description": "update-digests-20596719002-1767098370-debug",
+    "hide": false,
+    "last_updated": "2025-12-30T12:44:58.000Z",
+    "last_updated_url": "https://github.com/runlix/radarr/actions/runs/20596729822",
+    "tags": [
+      "update-digests-20596719002-1767098370-debug",
+      "update-digests-20596719002-1767098370-6.0.4.10291-debug",
+      "update-digests-20596719002-1767098370-cba1fab-debug"
+    ]
+  },
+  "update-digests-20596719002-1767098370-latest": {
+    "description": "update-digests-20596719002-1767098370-latest",
+    "hide": false,
+    "last_updated": "2025-12-30T12:44:58.000Z",
+    "last_updated_url": "https://github.com/runlix/radarr/actions/runs/20596729822",
+    "tags": [
+      "update-digests-20596719002-1767098370-latest",
+      "update-digests-20596719002-1767098370-6.0.4.10291-latest",
+      "update-digests-20596719002-1767098370-cba1fab-latest"
+    ]
   }
 }
