@@ -1,6 +1,10 @@
-# Radarr Distroless
+# Radarr
 
-Kubernetes-native distroless Docker image for [Radarr](https://github.com/Radarr/Radarr).
+Kubernetes-native distroless Docker image for [Radarr](https://github.com/Radarr/Radarr) - a movie collection manager.
+
+## Purpose
+
+Provides a minimal, secure Docker image for running Radarr in Kubernetes environments. Built on the `distroless-runtime` base image with only the essential dependencies required for Radarr to function.
 
 ## Features
 
@@ -19,7 +23,7 @@ docker run -d \
   --name radarr \
   -p 7878:7878 \
   -v /path/to/config:/config \
-  ghcr.io/runlix/radarr-distroless:release
+  ghcr.io/runlix/radarr:release-latest
 ```
 
 ### Kubernetes
@@ -34,7 +38,7 @@ spec:
     spec:
       containers:
       - name: radarr
-        image: ghcr.io/runlix/radarr-distroless:release
+        image: ghcr.io/runlix/radarr:release-latest
         ports:
         - containerPort: 7878
         volumeMounts:
