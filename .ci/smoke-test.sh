@@ -55,9 +55,10 @@ cleanup() {
 }
 trap cleanup EXIT
 
-# Start container
+# Start container (use local image, don't pull from registry)
 echo -e "${BLUE}▶️  Starting container...${NC}"
 if ! docker run \
+  --pull=never \
   --platform="${PLATFORM}" \
   --name "${CONTAINER_NAME}" \
   -v "${CONFIG_DIR}:/config" \
