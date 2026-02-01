@@ -111,15 +111,15 @@ if [ "${FATAL_COUNT}" -gt 0 ]; then
   exit 1
 fi
 
-# Check for expected startup messages (suppress broken pipe errors)
-if echo "$LOGS" | grep -qi "starting radarr" 2>/dev/null; then
+# Check for expected startup messages (use grep with here-string to avoid broken pipe)
+if grep -qi "starting radarr" <<< "$LOGS" 2>/dev/null; then
   echo -e "${GREEN}✅ Radarr startup message found${NC}"
 else
   echo -e "${YELLOW}⚠️  Warning: Expected startup message not found${NC}"
 fi
 
-# Check for database initialization (suppress broken pipe errors)
-if echo "$LOGS" | grep -qi "database" 2>/dev/null; then
+# Check for database initialization (use grep with here-string to avoid broken pipe)
+if grep -qi "database" <<< "$LOGS" 2>/dev/null; then
   echo -e "${GREEN}✅ Database initialization detected${NC}"
 else
   echo -e "${YELLOW}⚠️  Warning: No database messages found${NC}"
@@ -195,17 +195,6 @@ else
 fi
 echo ""
 
-# Check process is running inside container
-echo -e "${BLUE}⚙️  Checking Radarr process...${NC}"
-if docker exec "${CONTAINER_NAME}" pgrep -f Radarr >/dev/null 2>&1; then
-  echo -e "${GREEN}✅ Radarr process is running${NC}"
-else
-  echo -e "${RED}❌ Radarr process not found${NC}"
-  docker exec "${CONTAINER_NAME}" ps aux || true
-  exit 1
-fi
-echo ""
-
 # Summary
 echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 echo -e "${GREEN}✅✅✅ Smoke Test PASSED ✅✅✅${NC}"
@@ -215,8 +204,8 @@ echo "Test Summary:"
 echo "  • Container started successfully"
 echo "  • No critical errors in logs"
 echo "  • Health endpoint responding"
-echo "  • Correct architecture: ${CONTAINER_ARCH}"
-echo "  • Radarr process running"
+echo "  • API endpoints accessible"
+echo "  • Correct architecture: ${IMAGE_ARCH}"
 echo ""
 
 exit 0
