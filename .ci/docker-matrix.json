@@ -1,0 +1,93 @@
+{
+  "version": "6.0.4.10291",
+  "variants": [
+    {
+      "name": "latest-amd64",
+      "enabled": true,
+      "default": true,
+      "platforms": [
+        "linux/amd64"
+      ],
+      "dockerfiles": {
+        "linux/amd64": "linux-amd64.Dockerfile"
+      },
+      "tag_suffix": "-stable",
+      "build_args": {
+        "BUILDER_IMAGE": "docker.io/library/debian",
+        "BUILDER_TAG": "bookworm-slim",
+        "BUILDER_DIGEST": "sha256:09c53e50b5110eb26e0932ab77934481ce9c0068069d4f28e3e7493e51323bfe",
+        "BASE_IMAGE": "ghcr.io/runlix/distroless-runtime",
+        "BASE_TAG": "release-2025.12.29.1-linux-amd64-latest",
+        "BASE_DIGEST": "sha256:84c0f7bdb233bd276f4aecd7cef9109990a19c71579feb508021c9b86407a20f",
+        "PACKAGE_URL": "https://github.com/Radarr/Radarr/releases/download/v6.0.4.10291/Radarr.master.6.0.4.10291.linux-core-x64.tar.gz"
+      },
+      "test_script": ""
+    },
+    {
+      "name": "latest-arm64",
+      "enabled": true,
+      "default": false,
+      "platforms": [
+        "linux/arm64"
+      ],
+      "dockerfiles": {
+        "linux/arm64": "linux-arm64.Dockerfile"
+      },
+      "tag_suffix": "-stable",
+      "build_args": {
+        "BUILDER_IMAGE": "docker.io/library/debian",
+        "BUILDER_TAG": "bookworm-slim",
+        "BUILDER_DIGEST": "sha256:79abd3da4379967c72ac0c0e2dc9ac2204143b92224fada931ef855b8559df87",
+        "BASE_IMAGE": "ghcr.io/runlix/distroless-runtime",
+        "BASE_TAG": "release-2025.12.29.1-linux-arm64-latest",
+        "BASE_DIGEST": "sha256:b72912223114b42c6f11a51fbe0ad24059f0ef3d3d5c3e12db8902e985236a30",
+        "PACKAGE_URL": "https://github.com/Radarr/Radarr/releases/download/v6.0.4.10291/Radarr.master.6.0.4.10291.linux-core-arm64.tar.gz"
+      },
+      "test_script": ""
+    },
+    {
+      "name": "debug-amd64",
+      "enabled": true,
+      "default": false,
+      "platforms": [
+        "linux/amd64"
+      ],
+      "dockerfiles": {
+        "linux/amd64": "linux-amd64.Dockerfile"
+      },
+      "tag_suffix": "-debug",
+      "build_args": {
+        "BUILDER_IMAGE": "docker.io/library/debian",
+        "BUILDER_TAG": "bookworm-slim",
+        "BUILDER_DIGEST": "sha256:09c53e50b5110eb26e0932ab77934481ce9c0068069d4f28e3e7493e51323bfe",
+        "BASE_IMAGE": "ghcr.io/runlix/distroless-runtime",
+        "BASE_TAG": "release-2025.12.29.1-linux-amd64-debug",
+        "BASE_DIGEST": "sha256:fd8dd700a35a5fe0363fcc4aa1369a8ffa67904721f5582e0ec51dbef6f83fc4",
+        "PACKAGE_URL": "https://github.com/Radarr/Radarr/releases/download/v6.0.4.10291/Radarr.master.6.0.4.10291.linux-core-x64.tar.gz"
+      },
+      "test_script": ""
+    },
+    {
+      "name": "debug-arm64",
+      "enabled": true,
+      "default": false,
+      "platforms": [
+        "linux/arm64"
+      ],
+      "dockerfiles": {
+        "linux/arm64": "linux-arm64.Dockerfile"
+      },
+      "tag_suffix": "-debug",
+      "build_args": {
+        "BUILDER_IMAGE": "docker.io/library/debian",
+        "BUILDER_TAG": "bookworm-slim",
+        "BUILDER_DIGEST": "sha256:79abd3da4379967c72ac0c0e2dc9ac2204143b92224fada931ef855b8559df87",
+        "BASE_IMAGE": "ghcr.io/runlix/distroless-runtime",
+        "BASE_TAG": "release-2025.12.29.1-linux-arm64-debug",
+        "BASE_DIGEST": "sha256:d5373a60be8fecbca3f31a015e0809e5545ff368f1af5af0f5b065f976e49276",
+        "PACKAGE_URL": "https://github.com/Radarr/Radarr/releases/download/v6.0.4.10291/Radarr.master.6.0.4.10291.linux-core-arm64.tar.gz"
+      },
+      "test_script": ""
+    }
+  ]
+}

@@ -1,6 +1,8 @@
-# Builder tag from VERSION.json builder.tag (e.g., "bookworm-slim")
+# Builder image and tag from VERSION.json builder.image and builder.tag
+ARG BUILDER_IMAGE=docker.io/library/debian
 ARG BUILDER_TAG=bookworm-slim
-# Base tag (variant-arch) from VERSION.json base.tag (e.g., "release-2025.12.29.1-linux-amd64-latest")
+# Base image and tag from VERSION.json base.image and base.tag (e.g., "release-2025.12.29.1-linux-amd64-latest")
+ARG BASE_IMAGE=ghcr.io/runlix/distroless-runtime
 ARG BASE_TAG=release-2025.12.29.1-linux-amd64-latest
 # Selected digests (build script will set based on target configuration)
 # Default to empty string - build script should always provide valid digests
@@ -11,9 +13,9 @@ ARG BASE_DIGEST=""
 ARG PACKAGE_URL=""
 
 # STAGE 1 — fetch Radarr binaries
-# Build script will pass BUILDER_TAG and BUILDER_DIGEST from VERSION.json
-# Format: debian:bookworm-slim@sha256:digest (when digest provided)
-FROM docker.io/library/debian:${BUILDER_TAG}@${BUILDER_DIGEST} AS fetch
+# Build script will pass BUILDER_IMAGE, BUILDER_TAG and BUILDER_DIGEST from VERSION.json
+# Format: docker.io/library/debian:bookworm-slim@sha256:digest (when digest provided)
+FROM ${BUILDER_IMAGE}:${BUILDER_TAG}@${BUILDER_DIGEST} AS fetch
 
 # Redeclare ARG in this stage so it's available for use in RUN commands
 ARG PACKAGE_URL
@@ -35,8 +37,8 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
  && rm radarr.tar.gz
 
 # STAGE 2 — install Radarr-specific runtime packages
-# Build script will pass BUILDER_TAG and BUILDER_DIGEST from VERSION.json
-FROM docker.io/library/debian:${BUILDER_TAG}@${BUILDER_DIGEST} AS radarr-deps
+# Build script will pass BUILDER_IMAGE, BUILDER_TAG and BUILDER_DIGEST from VERSION.json
+FROM ${BUILDER_IMAGE}:${BUILDER_TAG}@${BUILDER_DIGEST} AS radarr-deps
 
 # Use BuildKit cache mounts to persist apt cache between builds
 RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
@@ -48,9 +50,9 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
  && rm -rf /var/lib/apt/lists/*
 
 # STAGE 3 — distroless final image
-# Build script will pass BASE_TAG (from VERSION.json base.tag) and BASE_DIGEST
+# Build script will pass BASE_IMAGE, BASE_TAG and BASE_DIGEST from VERSION.json
 # Format: ghcr.io/runlix/distroless-runtime:release-2025.12.29.1-linux-amd64-latest@sha256:digest (when digest provided)
-FROM ghcr.io/runlix/distroless-runtime:${BASE_TAG}@${BASE_DIGEST}
+FROM ${BASE_IMAGE}:${BASE_TAG}@${BASE_DIGEST}
 
 # Hardcoded for amd64 - no conditionals needed!
 ARG LIB_DIR=x86_64-linux-gnu
