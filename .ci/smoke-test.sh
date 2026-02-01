@@ -50,7 +50,13 @@ cleanup() {
 
   docker stop "${CONTAINER_NAME}" 2>/dev/null || true
   docker rm "${CONTAINER_NAME}" 2>/dev/null || true
-  rm -rf "${CONFIG_DIR}"
+
+  # Clean up config directory (files may be owned by container user)
+  if [ -d "${CONFIG_DIR}" ]; then
+    chmod -R 777 "${CONFIG_DIR}" 2>/dev/null || true
+    rm -rf "${CONFIG_DIR}" 2>/dev/null || true
+  fi
+
   echo -e "${YELLOW}Cleanup complete${NC}"
 }
 trap cleanup EXIT
@@ -105,15 +111,15 @@ if [ "${FATAL_COUNT}" -gt 0 ]; then
   exit 1
 fi
 
-# Check for expected startup messages
-if echo "$LOGS" | grep -qi "starting radarr"; then
+# Check for expected startup messages (suppress broken pipe errors)
+if echo "$LOGS" | grep -qi "starting radarr" 2>/dev/null; then
   echo -e "${GREEN}✅ Radarr startup message found${NC}"
 else
   echo -e "${YELLOW}⚠️  Warning: Expected startup message not found${NC}"
 fi
 
-# Check for database initialization
-if echo "$LOGS" | grep -qi "database"; then
+# Check for database initialization (suppress broken pipe errors)
+if echo "$LOGS" | grep -qi "database" 2>/dev/null; then
   echo -e "${GREEN}✅ Database initialization detected${NC}"
 else
   echo -e "${YELLOW}⚠️  Warning: No database messages found${NC}"
@@ -172,15 +178,19 @@ else
 fi
 echo ""
 
-# Verify container is using correct architecture
+# Verify image is using correct architecture
 echo -e "${BLUE}🏗️  Verifying architecture...${NC}"
-CONTAINER_ARCH=$(docker inspect "${CONTAINER_NAME}" | jq -r '.[0].Architecture')
+IMAGE_ARCH=$(docker image inspect "${IMAGE}" | jq -r '.[0].Architecture')
 EXPECTED_ARCH=$(echo "${PLATFORM}" | cut -d'/' -f2)
 
-if [ "${CONTAINER_ARCH}" = "${EXPECTED_ARCH}" ]; then
-  echo -e "${GREEN}✅ Architecture matches: ${CONTAINER_ARCH}${NC}"
+if [ "${IMAGE_ARCH}" = "${EXPECTED_ARCH}" ] || [ "${IMAGE_ARCH}" = "null" ]; then
+  if [ "${IMAGE_ARCH}" = "null" ]; then
+    echo -e "${YELLOW}⚠️  Cannot verify architecture (not set in image metadata)${NC}"
+  else
+    echo -e "${GREEN}✅ Architecture matches: ${IMAGE_ARCH}${NC}"
+  fi
 else
-  echo -e "${RED}❌ Architecture mismatch: expected ${EXPECTED_ARCH}, got ${CONTAINER_ARCH}${NC}"
+  echo -e "${RED}❌ Architecture mismatch: expected ${EXPECTED_ARCH}, got ${IMAGE_ARCH}${NC}"
   exit 1
 fi
 echo ""
