@@ -16,8 +16,8 @@
         "BUILDER_TAG": "bookworm-slim",
         "BUILDER_DIGEST": "sha256:09c53e50b5110eb26e0932ab77934481ce9c0068069d4f28e3e7493e51323bfe",
         "BASE_IMAGE": "ghcr.io/runlix/distroless-runtime",
-        "BASE_TAG": "release-2025.12.29.1-linux-amd64-latest",
-        "BASE_DIGEST": "sha256:84c0f7bdb233bd276f4aecd7cef9109990a19c71579feb508021c9b86407a20f",
+        "BASE_TAG": "stable",
+        "BASE_DIGEST": "sha256:0f85dc1a39b9191e9378cfbabdfef1fabb746ffaa76bf1737ad2f76bd7c902a9",
         "PACKAGE_URL": "https://github.com/Radarr/Radarr/releases/download/v6.0.4.10291/Radarr.master.6.0.4.10291.linux-core-x64.tar.gz"
       },
       "test_script": ""
@@ -37,8 +37,8 @@
         "BUILDER_TAG": "bookworm-slim",
         "BUILDER_DIGEST": "sha256:79abd3da4379967c72ac0c0e2dc9ac2204143b92224fada931ef855b8559df87",
         "BASE_IMAGE": "ghcr.io/runlix/distroless-runtime",
-        "BASE_TAG": "release-2025.12.29.1-linux-arm64-latest",
-        "BASE_DIGEST": "sha256:b72912223114b42c6f11a51fbe0ad24059f0ef3d3d5c3e12db8902e985236a30",
+        "BASE_TAG": "stable",
+        "BASE_DIGEST": "sha256:f6e8f4d7da22e9136ebaf294998ad7dd59c053c07ba373f26b6552999a1f8bd4",
         "PACKAGE_URL": "https://github.com/Radarr/Radarr/releases/download/v6.0.4.10291/Radarr.master.6.0.4.10291.linux-core-arm64.tar.gz"
       },
       "test_script": ""
@@ -58,8 +58,8 @@
         "BUILDER_TAG": "bookworm-slim",
         "BUILDER_DIGEST": "sha256:09c53e50b5110eb26e0932ab77934481ce9c0068069d4f28e3e7493e51323bfe",
         "BASE_IMAGE": "ghcr.io/runlix/distroless-runtime",
-        "BASE_TAG": "release-2025.12.29.1-linux-amd64-debug",
-        "BASE_DIGEST": "sha256:fd8dd700a35a5fe0363fcc4aa1369a8ffa67904721f5582e0ec51dbef6f83fc4",
+        "BASE_TAG": "debug",
+        "BASE_DIGEST": "sha256:f658823f5fd4b1abeb28684d1880ec88369bc6cc960138f0b1572b3a92bd4bb5",
         "PACKAGE_URL": "https://github.com/Radarr/Radarr/releases/download/v6.0.4.10291/Radarr.master.6.0.4.10291.linux-core-x64.tar.gz"
       },
       "test_script": ""
@@ -79,8 +79,8 @@
         "BUILDER_TAG": "bookworm-slim",
         "BUILDER_DIGEST": "sha256:79abd3da4379967c72ac0c0e2dc9ac2204143b92224fada931ef855b8559df87",
         "BASE_IMAGE": "ghcr.io/runlix/distroless-runtime",
-        "BASE_TAG": "release-2025.12.29.1-linux-arm64-debug",
-        "BASE_DIGEST": "sha256:d5373a60be8fecbca3f31a015e0809e5545ff368f1af5af0f5b065f976e49276",
+        "BASE_TAG": "debug",
+        "BASE_DIGEST": "sha256:1e4e54c1d614770a8725d572ec4edac2abccf39ed8ea30d64fdd6f5947ccf8ad",
         "PACKAGE_URL": "https://github.com/Radarr/Radarr/releases/download/v6.0.4.10291/Radarr.master.6.0.4.10291.linux-core-arm64.tar.gz"
       },
       "test_script": ""
