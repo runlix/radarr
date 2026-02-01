@@ -4,14 +4,13 @@
     {
       "name": "latest-amd64",
       "enabled": true,
-      "default": true,
       "platforms": [
         "linux/amd64"
       ],
       "dockerfiles": {
         "linux/amd64": "linux-amd64.Dockerfile"
       },
-      "tag_suffix": "-stable",
+      "tag_suffix": "stable",
       "build_args": {
         "BUILDER_IMAGE": "docker.io/library/debian",
         "BUILDER_TAG": "bookworm-slim",
@@ -26,14 +25,13 @@
     {
       "name": "latest-arm64",
       "enabled": true,
-      "default": false,
       "platforms": [
         "linux/arm64"
       ],
       "dockerfiles": {
         "linux/arm64": "linux-arm64.Dockerfile"
       },
-      "tag_suffix": "-stable",
+      "tag_suffix": "stable",
       "build_args": {
         "BUILDER_IMAGE": "docker.io/library/debian",
         "BUILDER_TAG": "bookworm-slim",
@@ -48,14 +46,13 @@
     {
       "name": "debug-amd64",
       "enabled": true,
-      "default": false,
       "platforms": [
         "linux/amd64"
       ],
       "dockerfiles": {
         "linux/amd64": "linux-amd64.Dockerfile"
       },
-      "tag_suffix": "-debug",
+      "tag_suffix": "debug",
       "build_args": {
         "BUILDER_IMAGE": "docker.io/library/debian",
         "BUILDER_TAG": "bookworm-slim",
@@ -70,14 +67,13 @@
     {
       "name": "debug-arm64",
       "enabled": true,
-      "default": false,
       "platforms": [
         "linux/arm64"
       ],
       "dockerfiles": {
         "linux/arm64": "linux-arm64.Dockerfile"
       },
-      "tag_suffix": "-debug",
+      "tag_suffix": "debug",
       "build_args": {
         "BUILDER_IMAGE": "docker.io/library/debian",
         "BUILDER_TAG": "bookworm-slim",
