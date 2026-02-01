@@ -1,0 +1,94 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "description": "Renovate configuration for docker-matrix.json updates",
+  "extends": [
+    "config:recommended"
+  ],
+  "baseBranches": ["release"],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "description": "Update Debian builder images (BUILDER_TAG + BUILDER_DIGEST) - https://docs.renovatebot.com/modules/manager/regex/",
+      "fileMatch": ["^\\.ci/docker-matrix\\.json$"],
+      "matchStrings": [
+        "\"BUILDER_TAG\"\\s*:\\s*\"(?<currentValue>[^\"]+)\"[\\s\\S]*?\"BUILDER_DIGEST\"\\s*:\\s*\"(?<currentDigest>sha256:[a-f0-9]{64})\""
+      ],
+      "depNameTemplate": "docker.io/library/debian",
+      "datasourceTemplate": "docker"
+    },
+    {
+      "customType": "regex",
+      "description": "Update Distroless runtime base images (BASE_TAG + BASE_DIGEST) - https://docs.renovatebot.com/modules/datasource/docker/",
+      "fileMatch": ["^\\.ci/docker-matrix\\.json$"],
+      "matchStrings": [
+        "\"BASE_TAG\"\\s*:\\s*\"(?<currentValue>[^\"]+)\"[\\s\\S]*?\"BASE_DIGEST\"\\s*:\\s*\"(?<currentDigest>sha256:[a-f0-9]{64})\""
+      ],
+      "depNameTemplate": "ghcr.io/runlix/distroless-runtime",
+      "datasourceTemplate": "docker"
+    },
+    {
+      "customType": "regex",
+      "description": "Update Radarr version from GitHub releases - https://docs.renovatebot.com/modules/datasource/github-releases/",
+      "fileMatch": ["^\\.ci/docker-matrix\\.json$"],
+      "matchStrings": [
+        "\"version\"\\s*:\\s*\"(?<currentValue>[^\"]+)\""
+      ],
+      "depNameTemplate": "Radarr/Radarr",
+      "datasourceTemplate": "github-releases",
+      "extractVersionTemplate": "^v?(?<version>.*)$"
+    },
+    {
+      "customType": "regex",
+      "description": "Update Radarr package URLs from GitHub releases",
+      "fileMatch": ["^\\.ci/docker-matrix\\.json$"],
+      "matchStrings": [
+        "\"PACKAGE_URL\"\\s*:\\s*\"https://github\\.com/(?<depName>[^/]+/[^/]+)/releases/download/v?(?<currentValue>[^/]+)/[^\"]+\""
+      ],
+      "datasourceTemplate": "github-releases",
+      "extractVersionTemplate": "^v?(?<version>.*)$"
+    }
+  ],
+  "packageRules": [
+    {
+      "description": "Group all docker-matrix.json updates into daily PRs",
+      "matchFileNames": ["**/.ci/docker-matrix.json"],
+      "groupName": "Docker base images",
+      "schedule": ["before 3am"]
+    },
+    {
+      "description": "Separate Debian builder updates - https://docs.renovatebot.com/configuration-options/#packagerules",
+      "matchDatasources": ["docker"],
+      "matchPackageNames": ["docker.io/library/debian"],
+      "groupName": "Debian builder",
+      "commitMessageTopic": "Debian builder image"
+    },
+    {
+      "description": "Separate Distroless runtime base updates",
+      "matchDatasources": ["docker"],
+      "matchPackageNames": ["ghcr.io/runlix/distroless-runtime"],
+      "groupName": "Distroless runtime",
+      "commitMessageTopic": "Distroless runtime base image"
+    },
+    {
+      "description": "Group Radarr version and package URL updates",
+      "matchDatasources": ["github-releases"],
+      "matchPackageNames": ["Radarr/Radarr"],
+      "groupName": "Radarr release",
+      "commitMessageTopic": "Radarr version"
+    },
+    {
+      "description": "Auto-merge digest-only updates (security patches) - https://docs.renovatebot.com/key-concepts/automerge/",
+      "matchFileNames": ["**/.ci/docker-matrix.json"],
+      "matchUpdateTypes": ["digest"],
+      "automerge": true,
+      "automergeType": "pr",
+      "automergeStrategy": "squash"
+    }
+  ],
+  "dependencyDashboard": true,
+  "dependencyDashboardTitle": "🔄 Dependency Updates Dashboard",
+  "labels": ["dependencies", "docker"],
+  "timezone": "UTC",
+  "prConcurrentLimit": 3,
+  "prHourlyLimit": 1
+}
