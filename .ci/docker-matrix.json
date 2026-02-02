@@ -17,7 +17,7 @@
         "BUILDER_DIGEST": "sha256:09c53e50b5110eb26e0932ab77934481ce9c0068069d4f28e3e7493e51323bfe",
         "BASE_IMAGE": "ghcr.io/runlix/distroless-runtime",
         "BASE_TAG": "stable",
-        "BASE_DIGEST": "sha256:0f85dc1a39b9191e9378cfbabdfef1fabb746ffaa76bf1737ad2f76bd7c902a9",
+        "BASE_DIGEST": "sha256:3b1c6c4f5d904070a72ebfc409cd296ffad717b2202233aef3a1702568c6e684",
         "PACKAGE_URL": "https://github.com/Radarr/Radarr/releases/download/v6.0.4.10291/Radarr.master.6.0.4.10291.linux-core-x64.tar.gz"
       },
       "test_script": ".ci/smoke-test.sh"
@@ -38,7 +38,7 @@
         "BUILDER_DIGEST": "sha256:79abd3da4379967c72ac0c0e2dc9ac2204143b92224fada931ef855b8559df87",
         "BASE_IMAGE": "ghcr.io/runlix/distroless-runtime",
         "BASE_TAG": "stable",
-        "BASE_DIGEST": "sha256:f6e8f4d7da22e9136ebaf294998ad7dd59c053c07ba373f26b6552999a1f8bd4",
+        "BASE_DIGEST": "sha256:69c8ef8fb791b563fe612e8ab23efa97f224635d057b18203c2befba280628f4",
         "PACKAGE_URL": "https://github.com/Radarr/Radarr/releases/download/v6.0.4.10291/Radarr.master.6.0.4.10291.linux-core-arm64.tar.gz"
       },
       "test_script": ".ci/smoke-test.sh"
@@ -59,7 +59,7 @@
         "BUILDER_DIGEST": "sha256:09c53e50b5110eb26e0932ab77934481ce9c0068069d4f28e3e7493e51323bfe",
         "BASE_IMAGE": "ghcr.io/runlix/distroless-runtime",
         "BASE_TAG": "debug",
-        "BASE_DIGEST": "sha256:f658823f5fd4b1abeb28684d1880ec88369bc6cc960138f0b1572b3a92bd4bb5",
+        "BASE_DIGEST": "sha256:cd246ef1b6e8ef3ddb3b471cb6af13132e2af38f69fc18c77fff8a97bf351a97",
         "PACKAGE_URL": "https://github.com/Radarr/Radarr/releases/download/v6.0.4.10291/Radarr.master.6.0.4.10291.linux-core-x64.tar.gz"
       },
       "test_script": ".ci/smoke-test.sh"
@@ -80,7 +80,7 @@
         "BUILDER_DIGEST": "sha256:79abd3da4379967c72ac0c0e2dc9ac2204143b92224fada931ef855b8559df87",
         "BASE_IMAGE": "ghcr.io/runlix/distroless-runtime",
         "BASE_TAG": "debug",
-        "BASE_DIGEST": "sha256:1e4e54c1d614770a8725d572ec4edac2abccf39ed8ea30d64fdd6f5947ccf8ad",
+        "BASE_DIGEST": "sha256:8e90e3a86b12cb96706cff3ee6fcfd44e5a5f5d58993cb895a69de6ecd309cdb",
         "PACKAGE_URL": "https://github.com/Radarr/Radarr/releases/download/v6.0.4.10291/Radarr.master.6.0.4.10291.linux-core-arm64.tar.gz"
       },
       "test_script": ".ci/smoke-test.sh"
