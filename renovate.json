@@ -70,6 +70,12 @@
       "commitMessageTopic": "Distroless runtime base image"
     },
     {
+      "description": "Use regex versioning for Radarr 4-part versions - https://docs.renovatebot.com/modules/versioning/regex/",
+      "matchDatasources": ["github-releases"],
+      "matchPackageNames": ["Radarr/Radarr"],
+      "versioning": "regex:^(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)\\.(?<build>\\d+)$"
+    },
+    {
       "description": "Group Radarr version and package URL updates",
       "matchDatasources": ["github-releases"],
       "matchPackageNames": ["Radarr/Radarr"],
