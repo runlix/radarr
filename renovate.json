@@ -87,6 +87,8 @@
   ],
   "dependencyDashboard": true,
   "dependencyDashboardTitle": "🔄 Dependency Updates Dashboard",
+  "dependencyDashboardApproval": false,
+  "prCreation": "immediate",
   "labels": ["dependencies", "docker"],
   "timezone": "UTC",
   "prConcurrentLimit": 3,
