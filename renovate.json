@@ -53,7 +53,7 @@
       "description": "Group all docker-matrix.json updates into daily PRs",
       "matchFileNames": ["**/.ci/docker-matrix.json"],
       "groupName": "Docker base images",
-      "schedule": ["at any time"]
+      "schedule": ["before 3am"]
     },
     {
       "description": "Separate Debian builder updates - https://docs.renovatebot.com/configuration-options/#packagerules",
@@ -91,5 +91,5 @@
   "labels": ["dependencies", "docker"],
   "timezone": "UTC",
   "prConcurrentLimit": 3,
-  "prHourlyLimit": 10
+  "prHourlyLimit": 1
 }
