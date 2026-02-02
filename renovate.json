@@ -76,11 +76,14 @@
       "versioning": "regex:^(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)\\.(?<build>\\d+)$"
     },
     {
-      "description": "Group Radarr version and package URL updates",
+      "description": "Group Radarr version and package URL updates with auto-merge - https://docs.renovatebot.com/key-concepts/automerge/",
       "matchDatasources": ["github-releases"],
       "matchPackageNames": ["Radarr/Radarr"],
       "groupName": "Radarr release",
-      "commitMessageTopic": "Radarr version"
+      "commitMessageTopic": "Radarr version",
+      "automerge": true,
+      "automergeType": "pr",
+      "automergeStrategy": "squash"
     },
     {
       "description": "Auto-merge digest-only updates (security patches) - https://docs.renovatebot.com/key-concepts/automerge/",
