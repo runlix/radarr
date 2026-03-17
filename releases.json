@@ -1,9 +1,9 @@
 {
   "radarr": {
     "version": "6.0.4.10291",
-    "sha": "a774ef492b220be9ea99771130f8c1b7e240043e",
-    "short_sha": "a774ef4",
-    "timestamp": "2026-02-26T02:57:43Z",
+    "sha": "26b9d23196c520ebc94861b9a939058b08383d16",
+    "short_sha": "26b9d23",
+    "timestamp": "2026-03-17T00:47:25Z",
     "manifests": [
       "6.0.4.10291-debug",
       "6.0.4.10291-stable"
