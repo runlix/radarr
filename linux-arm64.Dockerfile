@@ -1,21 +1,8 @@
-# Builder image and tag from VERSION.json builder.image and builder.tag
-ARG BUILDER_IMAGE=docker.io/library/debian
-ARG BUILDER_TAG=bookworm-slim
-# Base image and tag from VERSION.json base.image and base.tag (e.g., "release-2025.12.29.1-linux-arm64-latest")
-ARG BASE_IMAGE=ghcr.io/runlix/distroless-runtime
-ARG BASE_TAG=release-2025.12.29.1-linux-arm64-latest
-# Selected digests (build script will set based on target configuration)
-# Default to empty string - build script should always provide valid digests
-# If empty, FROM will fail (which is desired to enforce digest pinning)
-ARG BUILDER_DIGEST=""
-ARG BASE_DIGEST=""
-# Package URL from VERSION.json packages[0].url
-ARG PACKAGE_URL=""
+ARG BUILDER_REF="docker.io/library/debian:bookworm-slim@sha256:ee5473f786ff8a4e03409277c276b459b29afa55a84268bef55342c4f705b7ad"
+ARG BASE_REF="ghcr.io/runlix/distroless-runtime-v2-canary:stable@sha256:6f96f11dbb9d8f6e76672e73bbf743dbec36d2e4f6d29250151a48379a8c66dd"
+ARG PACKAGE_URL="https://github.com/Radarr/Radarr/releases/download/v6.1.1.10360/Radarr.master.6.1.1.10360.linux-core-arm64.tar.gz"
 
-# STAGE 1 — fetch Radarr binaries
-# Build script will pass BUILDER_IMAGE, BUILDER_TAG and BUILDER_DIGEST from VERSION.json
-# Format: docker.io/library/debian:bookworm-slim@sha256:digest (when digest provided)
-FROM ${BUILDER_IMAGE}:${BUILDER_TAG}@${BUILDER_DIGEST} AS fetch
+FROM ${BUILDER_REF} AS fetch
 
 # Redeclare ARG in this stage so it's available for use in RUN commands
 ARG PACKAGE_URL
@@ -36,9 +23,7 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
  && chmod +x /app/bin/Radarr \
  && rm radarr.tar.gz
 
-# STAGE 2 — install Radarr-specific runtime packages
-# Build script will pass BUILDER_IMAGE, BUILDER_TAG and BUILDER_DIGEST from VERSION.json
-FROM ${BUILDER_IMAGE}:${BUILDER_TAG}@${BUILDER_DIGEST} AS radarr-deps
+FROM ${BUILDER_REF} AS radarr-deps
 
 # Use BuildKit cache mounts to persist apt cache between builds
 RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
@@ -49,30 +34,22 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     mediainfo \
  && rm -rf /var/lib/apt/lists/*
 
-# STAGE 3 — distroless final image
-# Build script will pass BASE_IMAGE, BASE_TAG and BASE_DIGEST from VERSION.json
-# Format: ghcr.io/runlix/distroless-runtime:release-2025.12.29.1-linux-arm64-latest@sha256:digest (when digest provided)
-FROM ${BASE_IMAGE}:${BASE_TAG}@${BASE_DIGEST}
+FROM ${BASE_REF}
 
 # Hardcoded for arm64 - no conditionals needed!
 ARG LIB_DIR=aarch64-linux-gnu
 ARG LD_SO=ld-linux-aarch64.so.1
 
 COPY --from=fetch /app /app
-# Copy binaries from radarr-deps stage (kept separate for clarity)
 COPY --from=radarr-deps /usr/bin/sqlite3 /usr/bin/sqlite3
 COPY --from=radarr-deps /usr/bin/ffmpeg /usr/bin/ffmpeg
 COPY --from=radarr-deps /usr/bin/mediainfo /usr/bin/mediainfo
-# Copy shared libraries - combined into fewer layers by grouping related libraries
-# SQLite libraries
 COPY --from=radarr-deps /usr/lib/${LIB_DIR}/libsqlite3.so.* /usr/lib/${LIB_DIR}/
-# FFmpeg libraries (avcodec, avformat, avutil, swscale)
 COPY --from=radarr-deps /usr/lib/${LIB_DIR}/libavcodec.so.* \
                         /usr/lib/${LIB_DIR}/libavformat.so.* \
                         /usr/lib/${LIB_DIR}/libavutil.so.* \
                         /usr/lib/${LIB_DIR}/libswscale.so.* \
                         /usr/lib/${LIB_DIR}/
-# MediaInfo libraries (mediainfo, zen)
 COPY --from=radarr-deps /usr/lib/${LIB_DIR}/libmediainfo.so.* \
                         /usr/lib/${LIB_DIR}/libzen.so.* \
                         /usr/lib/${LIB_DIR}/
@@ -80,4 +57,3 @@ COPY --from=radarr-deps /usr/lib/${LIB_DIR}/libmediainfo.so.* \
 WORKDIR /app/bin
 USER 65532:65532
 ENTRYPOINT ["/app/bin/Radarr", "-nobrowser", "-data=/config"]
-

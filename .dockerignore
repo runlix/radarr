@@ -3,8 +3,7 @@ README.md
 *.md
 
 # Build scripts
-update-digests.sh
-update-versions.sh
+build-local.sh
 
 # Git files
 .git
@@ -14,10 +13,8 @@ update-versions.sh
 .github
 
 # Metadata files
-tags.json
 links.json
-
-# Note: VERSION.json is excluded since values are passed as build args
+renovate.json
 
 # IDE files
 .vscode
@@ -28,4 +25,3 @@ links.json
 # OS files
 .DS_Store
 Thumbs.db
-
