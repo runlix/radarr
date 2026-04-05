@@ -1,71 +1,58 @@
 # Radarr
 
-Kubernetes-native distroless Docker image for [Radarr](https://github.com/Radarr/Radarr) - a movie collection manager.
+`radarr` publishes the Runlix container image for [Radarr](https://github.com/Radarr/Radarr).
 
-## Purpose
+The current published image name is:
 
-Provides a minimal, secure Docker image for running Radarr in Kubernetes environments. Built on the `distroless-runtime` base image with only the essential dependencies required for Radarr to function.
-
-## Features
-
-- Distroless base (no shell, minimal attack surface)
-- Kubernetes-native permissions (no s6-overlay)
-- Read-only root filesystem
-- Non-root execution
-- Minimal image size (~100MB vs ~500MB)
-
-## Usage
-
-### Docker
-
-```bash
-docker run -d \
-  --name radarr \
-  -p 7878:7878 \
-  -v /path/to/config:/config \
-  ghcr.io/runlix/radarr:release-latest
+```text
+ghcr.io/runlix/radarr
 ```
 
-### Kubernetes
+Use a versioned stable manifest tag from [release.json](release.json):
 
-```yaml
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: radarr
-spec:
-  template:
-    spec:
-      containers:
-      - name: radarr
-        image: ghcr.io/runlix/radarr:release-latest
-        ports:
-        - containerPort: 7878
-        volumeMounts:
-        - name: config
-          mountPath: /config
-        securityContext:
-          runAsUser: 1012
-          runAsGroup: 1011
-          supplementalGroups: [1010, 1003]
-          readOnlyRootFilesystem: true
-          capabilities:
-            drop: ["ALL"]
-      volumes:
-      - name: config
-        persistentVolumeClaim:
-          claimName: radarr-config
-      securityContext:
-        fsGroup: 1011
+```dockerfile
+FROM ghcr.io/runlix/radarr:<version>-stable
 ```
 
-## Tags
+The authoritative published tags, digests, and source revision live in [release.json](release.json).
 
-See [tags.json](tags.json) for available tags.
+## What’s Included
+
+- Radarr upstream binaries
+- `sqlite3`
+- `ffmpeg`
+- `mediainfo`
+- shared runtime libraries from `distroless-runtime-v2-canary`
+
+The image keeps the distroless runtime model while layering in the Radarr-specific binaries and media tooling it needs.
+
+## Branch Layout
+
+`main` owns metadata and automation config:
+
+- `README.md`
+- `links.json`
+- `release.json`
+- `renovate.json`
+- `.github/workflows/validate-release-metadata.yml`
+
+`release` owns build and publish inputs:
+
+- `.ci/build.json`
+- `.ci/smoke-test.sh`
+- `linux-*.Dockerfile`
+- `.github/workflows/validate-build.yml`
+- `.github/workflows/publish-release.yml`
+
+## Release Flow
+
+Changes merge to `release`, where `Publish Release` builds the versioned `stable` and `debug` multi-arch manifests, attests them, optionally sends Telegram, and opens the sync PR back to `main`.
+
+`main` validates metadata and config-only changes with `Validate Release Metadata`.
 
 ## Environment Variables
 
-- `RADARR__SERVER__PORT`: Server port (default: 7878)
+- `RADARR__SERVER__PORT`: server port, default `7878`
 
 ## License
 
