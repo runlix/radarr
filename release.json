@@ -1,13 +1,13 @@
 {
   "image": "ghcr.io/runlix/radarr",
   "version": "6.2.1.10461",
-  "sha": "e17e3f237b50d10bb1802219b8953df995316d41",
-  "short_sha": "e17e3f2",
-  "published_at": "2026-06-11T05:14:36Z",
+  "sha": "34f619338561799a52f64f7f4a73b8f05e575fda",
+  "short_sha": "34f6193",
+  "published_at": "2026-06-11T21:19:05Z",
   "manifests": [
     {
       "tag": "6.1.1.10360-debug",
-      "digest": "sha256:42d8316ba5e8ffba62f392c39ec1e1eae83372d37d11ff8844c65b14cef1ade2",
+      "digest": "sha256:09592b9092e20efaca811b5f7ded1a75010c78ee4e06e343eb2534e113be74c9",
       "platforms": [
         "linux/amd64",
         "linux/arm64"
@@ -15,7 +15,7 @@
     },
     {
       "tag": "6.1.1.10360-stable",
-      "digest": "sha256:1e320df29199eab1cbf596b78f8d2b94051cd4783ce7780d36f03748caaad29b",
+      "digest": "sha256:8c5b79577b8e09ada358bbdb8aa4a83b684bacfa694e9b87d115bfe7e09f5c8b",
       "platforms": [
         "linux/amd64",
         "linux/arm64"
